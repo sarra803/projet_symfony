@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+{% block title%} Liste des livres{% endblock %}
+{% block body %}
+{{ form_start(form) }}
+<div class="form-row align-items-end" >
+<div class="col">
+ {{ form_row(form.titre) }}
+</div>
+ <div class="col">
+ <div class="form-group">
+ <button type="submit" class="btn btn-success">Rechercher</button>
+ </div>
+</div>
+</div>
+{{ form_end(form) }}
+{% if livres %}
+<table id="livres" class="table table-striped">
+ <thead>
+ <tr>
+ <th>titre</th>
+ <th>auteur</th>
+ <th>NbPages</th>
+ <th> library</th>
+ <th>Actions</th>
+ </tr>
+ </thead>
+ <tbody>
+ {% for livre in articles %}
+ <tr>
+ <td>{{ livre.titre }}</td>
+ <td>{{ livre.auteur }}</td>
+ <td>{{ livre.NbPages }}</td>
+  <td>{{ livre.Librairie.nom}}</td>
+ <td>
+ <a href="/livre/{{ livre.id }}" class="btn btn-dark">Détails</a>
+<a href="/livre/edit/{{ livre.id }}" class="btn btn-dark">Modifier</a>
+<a href="/livre/delete/{{ livre.id }}" class="btn btn-danger"onclick="return confirm('Etesvous sûr de supprimer cet article?');">Supprimer</a>
+</td>
+ </tr>
+ {% endfor %}
+ </tbody>
+ </table>
+ {% else %}
+ <p>Aucun livre</p>
+ {% endif %}
+{% endblock %}
